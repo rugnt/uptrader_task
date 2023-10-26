@@ -1,0 +1,41 @@
+version: "3.11"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: Uptrader45AEF2b27f4
+      POSTGRES_USER: uptrader_test_user
+      POSTGRES_DB: uptrader_test
+      POSTGRES_INITDB_ARGS: "-A md5"
+    ports:
+      - "5432:5432"
+
+  uptrader-test-app:
+    restart: always
+    build:
+      context: app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - static:/app/static
+
+    command: 'sh -c "python3 manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:8000"'
+
+  nginx:
+    build:
+      context: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - uptrader-test-app
+    volumes:
+      -  static:/static
+
+volumes:
+  static:

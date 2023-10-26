@@ -26,7 +26,7 @@
 
 При выполнении задания из библиотек следует использовать только Django и стандартную библиотеку Python.
 
-## Для начало работы необходимо
+## Для начала установки приложения необходимо
 
 - Установить <a href="https://docs.docker.com/engine/install/" target="_blank">docker</a> (если не установлен)
 - Установить <a href="https://docs.docker.com/compose/install/" target="_blank">docker-compose</a> (если не установлен)
